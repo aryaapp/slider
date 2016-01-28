@@ -331,9 +331,10 @@ class Slider extends React.Component {
   }
 
   render() {
-    const {handle, upperBound, lowerBound} = this.state;
-    const {className, prefixCls, disabled, dots, included, range, step,
-           marks, max, min, tipTransitionName, tipFormatter, children} = this.props;
+    const { handle, upperBound, lowerBound } = this.state;
+    const { className, prefixCls, disabled, dots, included, range, step,
+           marks, max, min, tipTransitionName, tipFormatter, children,
+           additionalTrackStyles, additionalHandleStyles } = this.props;
 
     const upperOffset = this.calcOffset(upperBound);
     const lowerOffset = this.calcOffset(lowerBound);
@@ -341,13 +342,13 @@ class Slider extends React.Component {
     const handleClassName = prefixCls + '-handle';
     const isNoTip = (step === null) || (tipFormatter === null);
 
-    const upper = (<Handle className={handleClassName}
+    const upper = (<Handle className={handleClassName} additionalHandleStyles={additionalHandleStyles}
                            noTip={isNoTip} tipTransitionName={tipTransitionName} tipFormatter={tipFormatter}
                            offset={upperOffset} value={upperBound} dragging={handle === 'upperBound'} />);
 
     let lower = null;
     if (range) {
-      lower = (<Handle className={handleClassName}
+      lower = (<Handle className={handleClassName} additionalHandleStyles={additionalHandleStyles}
                        noTip={isNoTip} tipTransitionName={tipTransitionName} tipFormatter={tipFormatter}
                        offset={lowerOffset} value={lowerBound} dragging={handle === 'lowerBound'} />);
     }
@@ -364,7 +365,7 @@ class Slider extends React.Component {
            onMouseDown={disabled ? noop : this.onMouseDown.bind(this)}>
         {upper}
         {lower}
-        <Track className={prefixCls + '-track'} included={isIncluded}
+        <Track className={prefixCls + '-track'} additionalTrackStyles={additionalTrackStyles} included={isIncluded}
                offset={lowerOffset} length={upperOffset - lowerOffset}/>
         <Dots prefixCls={prefixCls} marks={marks} dots={dots} step={step}
               included={isIncluded} lowerBound={lowerBound}
@@ -404,6 +405,8 @@ Slider.propTypes = {
   dots: React.PropTypes.bool,
   range: React.PropTypes.bool,
   allowCross: React.PropTypes.bool,
+  additionalHandleStyles: React.PropTypes.object,
+  additionalTrackStyles: React.PropTypes.object,
 };
 
 Slider.defaultProps = {
@@ -423,6 +426,8 @@ Slider.defaultProps = {
   dots: false,
   range: false,
   allowCross: true,
+  additionalHandleStyles: {},
+  additionalTrackStyles: {},
 };
 
 export default Slider;
