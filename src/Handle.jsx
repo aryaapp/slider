@@ -48,9 +48,9 @@ export default class Handle extends React.Component {
     const props = this.props;
     const {className, tipTransitionName, tipFormatter, offset, value} = props;
     const {dragging, noTip, additionalHandleStyles} = props;
-
-    const style = mergeOptions({ left: offset + '%' }, additionalHandleStyles);
-    const handle = (<div className={className} style={style}
+    const noTooltipStyle = { left: offset + '%' };
+    const tooltipStyle = mergeOptions(noTooltipStyle, additionalHandleStyles);
+    const handle = (<div className={className} style={noTip ? noTooltipStyle : tooltipStyle}
                       onMouseUp={this.showTooltip.bind(this)}
                       onMouseEnter={this.showTooltip.bind(this)}
                       onMouseLeave={this.hideTooltip.bind(this)}/>);
