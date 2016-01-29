@@ -102,5 +102,12 @@ ReactDOM.render(
       <p>Slider with dynamic `min` `max`</p>
       <DynamicBounds />
     </div>
+      <div style={style}>
+      <p>Slider with dynamic additional style</p>
+      <Slider
+        additionalHandleStyles={ { backgroundColor: 'red'} }
+        additionalTrackStyles={ { backgroundColor: 'yellow' } }
+      />
+    </div>
   </div>
   , document.getElementById('__react-content'));
